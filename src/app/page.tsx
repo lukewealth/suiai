@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import CodeComponent from '../components/SyntexHighlighter_react'
 
 export default function Home() {
   const [message, setMessage] = useState(
@@ -38,8 +39,11 @@ export default function Home() {
 
   return (
     <div className='h-screen flex  px-32 flex-col justify-center items-center'>
-      <p className='whitespace-pre-wrap'>{message}</p>
+      <CodeComponent code={message}/>
+      {/* <p className='whitespace-pre-wrap'>{message}</p> */}
       <button onClick={handle}>Click me</button>
     </div>
   );
 }
+
+
