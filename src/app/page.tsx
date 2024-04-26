@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import CodeComponent from '../components/SyntexHighlighter_react'
+import CodeComponent from '../components/SyntaxHighlighter_react'
 
 export default function Home() {
   const [message, setMessage] = useState(
