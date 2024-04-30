@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-import { signIn, useSession } from "next-auth/react";
-//@ts-nocheck
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+
+import { useState } from "react";
+
 
 export default function Login({changeAuth}) {
 
@@ -79,8 +79,8 @@ export default function Login({changeAuth}) {
      </form> 
      <p className=" text-center my-4">Don’t have an account?  <button onClick={changeAuth}>Sign Up</button></p>
      <div className="relative border-t border-gray-500 w-[80%] m-auto my-10"><span className="bg-secondary text-gray-500 absolute top-[-12px] w-fit left-0 right-0 m-auto px-4">Or better yet</span></div>
-     <button className="flex w-full rounded-full justify-center items-center gap-4 border py-2 border-gray-400 my-4"><Image className=" " width={30} height={30} src={'/images/google.png'} alt=""/><span>Continue with Google</span></button>
-     <button className="flex w-full rounded-full justify-center items-center gap-4 border py-2 border-gray-400 my-4"><Image className=" " width={30} height={30} src={'/images/apple.png'} alt=""/><span>Continue with Apple</span></button>
+     <button onClick={()=>signIn("google")}  className="flex w-full rounded-full justify-center items-center gap-4 border py-2 border-gray-400 my-4"><Image className=" "  width={30} height={30} src={'/images/google.png'} alt=""/><span>Continue with Google</span></button>
+     <button onClick={()=>signIn("github")} className="flex w-full rounded-full justify-center items-center gap-4 border py-2 border-gray-400 my-4"><Image className=" " width={30} height={30} src={'/images/github.png'} alt=""/><span>Continue with Github</span></button>
     </div>
   );
 }

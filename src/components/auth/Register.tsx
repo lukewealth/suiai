@@ -1,8 +1,9 @@
 "use client";
 import { handleRegister } from "@/lib/auth/auth";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 //import { useRouter } from "next/router";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 
 
 export default function Register({changeAuth}:any) {
@@ -13,20 +14,23 @@ export default function Register({changeAuth}:any) {
   const [show_password, setShowPassword] = useState(false);
   const [error, setError] = useState('')
   const [pending, setPending] = useState(false)
-  //let router = useRouter()
+
   const validateEmail = () => {
     // Regular expression for a simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isValidEmail = emailRegex.test(email);
 
     // Set emailError based on validation result
-    setError(isValidEmail ? '' : "Invalid email address");
+    return isValidEmail
   };
 
   function handleEmail(e){
+ 
+    setError( validateEmail()? '' : "Invalid email address");
     setEmail(e.target.value)
-  }
 
+  }
+ 
   function handlePass(e){
     setPassword(e.target.value)
   }
@@ -76,8 +80,8 @@ export default function Register({changeAuth}:any) {
      </form> 
      <p className=" text-center my-4">Already have an account? <button  onClick={changeAuth}>Login</button></p>
      <div className="relative border-t border-gray-500 w-[80%] m-auto my-10"><span className="bg-secondary text-gray-500 absolute top-[-12px] w-fit left-0 right-0 m-auto px-4">Or better yet</span></div>
-     <button className="flex w-full rounded-full justify-center items-center gap-4 border py-2 border-gray-400 my-4"><Image className=" " width={30} height={30} src={'/images/google.png'} alt=""/><span>Continue with Google</span></button>
-     <button className="flex w-full rounded-full justify-center items-center gap-4 border py-2 border-gray-400 my-4"><Image className=" " width={30} height={30} src={'/images/apple.png'} alt=""/><span>Continue with Apple</span></button>
+     <button onClick={()=>signIn("google")}  className="flex w-full rounded-full justify-center items-center gap-4 border py-2 border-gray-400 my-4"><Image className=" "  width={30} height={30} src={'/images/google.png'} alt=""/><span>Continue with Google</span></button>
+     <button onClick={()=>signIn("github")} className="flex w-full rounded-full justify-center items-center gap-4 border py-2 border-gray-400 my-4"><Image className=" " width={30} height={30} src={'/images/github.png'} alt=""/><span>Continue with Github</span></button>
     </div>
   );
 }

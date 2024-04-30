@@ -41,7 +41,7 @@ export const auth_provider_options =   {
         },
       }),
       GitHubProvider({
-        secret: process.env.SECRET,
+        secret: process.env.NEXTAUTH_SECRET,
         clientId: process.env.GITHUB_ID,
         clientSecret: process.env.GITHUB_SECRET,
       }),
@@ -51,7 +51,7 @@ export const auth_provider_options =   {
         checks: "both",
       }),
     ],
-    secret: process.env.SECRET,
+    secret: process.env.NEXTAUTH_SECRET,
     session: {
       strategy: "jwt",
     },
