@@ -2,10 +2,9 @@
 import { handleRegister } from "@/lib/auth/auth";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
-//import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function Register({ changeAuth }: any) {
+export default function Register({ changeAuth }: { changeAuth: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show_password, setShowPassword] = useState(false);
@@ -13,24 +12,20 @@ export default function Register({ changeAuth }: any) {
   const [pending, setPending] = useState(false);
 
   const validateEmail = () => {
-    // Regular expression for a simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValidEmail = emailRegex.test(email);
-
-    // Set emailError based on validation result
-    return isValidEmail;
+    return emailRegex.test(email);
   };
 
-  function handleEmail(e) {
+  function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
     setError(validateEmail() ? "" : "Invalid email address");
     setEmail(e.target.value);
   }
 
-  function handlePass(e) {
+  function handlePass(e: React.ChangeEvent<HTMLInputElement>) {
     setPassword(e.target.value);
   }
 
-  async function call_register(e) {
+  async function call_register(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setPending(true);
     let res = await handleRegister({ email, password });
@@ -44,6 +39,7 @@ export default function Register({ changeAuth }: any) {
   }
 
   return (
+
     <div className=' md:w-[47%] flex relative left-10 flex-col items-center '>
       <div className='mb-10'>
         <h2 className='font-bold text-[36px] text-call_to_action text-center'>
