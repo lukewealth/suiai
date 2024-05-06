@@ -43,3 +43,32 @@ pre {
   background-clip: text;
   font-family: Play, sans-serif;
 }
+
+
+.special-text-2 {
+  background: linear-gradient(50deg, #e344ff, #335fff);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  font-family: Play, sans-serif;
+}
+
+
+.cursor::after {
+  content: "|";
+  opacity: 1;
+  /* animation: blink 0.78s step-end infinite; */
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.bord{
+  border:1px solid blueviolet;
+}

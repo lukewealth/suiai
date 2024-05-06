@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title:"SUI",
+  title: "SUI",
   description: "The Sui chat bot",
 };
 
@@ -20,14 +20,14 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <SessionProvider session={session}>
-          <main className='w-full h-full'>
+      <SessionProvider session={session}>
+        <body className={`${inter.className} w-full flex bg-red-300 h-screen`}>
+          <main className='w-full flex  flex-col'>
             <Header />
             {children}
           </main>
-        </SessionProvider>
-      </body>
+        </body>
+      </SessionProvider>
     </html>
   );
 }
