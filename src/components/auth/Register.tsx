@@ -17,7 +17,7 @@ export default function Register({ changeAuth }: { changeAuth: () => void }) {
   };
 
   function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
-    setError(validateEmail() ? "" : "Invalid email address");
+    setError(validateEmail(e.target.value) ? "" : "Invalid email address");
     setEmail(e.target.value);
   }
 
@@ -39,8 +39,7 @@ export default function Register({ changeAuth }: { changeAuth: () => void }) {
   }
 
   return (
-
-    <div className=' md:w-[47%] flex relative left-10 flex-col items-center '>
+    <div className=' md:w-[47%] flex relative  flex-col items-center '>
       <div className='mb-10'>
         <h2 className='font-bold text-[36px] text-call_to_action text-center'>
           Sign up with free trail
@@ -107,13 +106,13 @@ export default function Register({ changeAuth }: { changeAuth: () => void }) {
         <button
           className={`w-full text-white ${
             pending ? "bg-gray-500" : "bg-call_to_action"
-          } rounded-full h-[60px] my-3 `}
+          } rounded-full  hover:bg-slate-700 h-[60px] my-3 `}
           disabled={pending}
         >
           {pending ? "Signing you up..." : "Get started free"}
         </button>
       </form>
-      <p className=' text-center'>
+      <p className=' text-center mt-2'>
         Already have an account?{" "}
         <button
           className='underline text-call_to_action hover:no-underline'
@@ -122,14 +121,14 @@ export default function Register({ changeAuth }: { changeAuth: () => void }) {
           Login
         </button>
       </p>
-      <div className='relative border-t border-gray-400 flex justify-center w-[80%] mx-auto my-8'>
+      <div className='relative border-t border-gray-400 flex justify-center w-[80%] mx-auto my-6'>
         <span className='bg-secondary  text-gray-400 absolute top-[-12px] w-fit   px-4'>
           Or better yet...
         </span>
       </div>
       <button
         onClick={() => signIn("google")}
-        className='flex w-full rounded-full hover:bg-call_to_action  shadow-primary hover:shadow hover:bg-opacity-10 my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
+        className='flex w-full rounded-full hover:bg-stone-300  shadow-primary hover:shadow  my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
       >
         <Image
           className=' '
@@ -142,7 +141,7 @@ export default function Register({ changeAuth }: { changeAuth: () => void }) {
       </button>
       <button
         onClick={() => signIn("github")}
-        className='flex w-full rounded-full hover:bg-call_to_action  shadow-primary hover:shadow hover:bg-opacity-10 duration-75 my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
+        className='flex w-full rounded-full  shadow-primary hover:shadow hover:bg-stone-300 duration-75 my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
       >
         <Image
           className=' '

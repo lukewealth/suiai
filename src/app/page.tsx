@@ -4,6 +4,8 @@ import Image from "next/image";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import Typewriter from "typewriter-effect";
+import Link from "next/link";
+import Header from "@/components/static/Header";
 
 export default function Home() {
   useEffect(() => {
@@ -14,6 +16,7 @@ export default function Home() {
 
   return (
     <div className='flex-grow flex items-center  bg-call_to_action '>
+      <Header />
       <section className='flex w-full  text-white  px-12 lg:px-[4em] justify-between items-center h-[45%] self-center'>
         <div
           className='w-[42em] h-full flex flex-col justify-between '
@@ -29,14 +32,16 @@ export default function Home() {
             Your All-in-One Solution for writing Move programming language code,
             generating smart contracts, facilitating cryptocurrency transactions
           </p>
-          <button
-            className='bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] w-[250px] from-[#F258FF] to-[#9715FF] p-4 rounded-md'
-            type='button'
-            data-aos='zoom-out-right'
-            data-aos-anchor-placement='center-bottom'
-          >
-            Explore Now with SuiAI &rarr;
-          </button>
+          <Link href={"/chat"}>
+            <button
+              className='bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] w-[250px] from-[#F258FF] to-[#9715FF] p-4 rounded-md'
+              type='button'
+              data-aos='zoom-out-right'
+              data-aos-anchor-placement='center-bottom'
+            >
+              Explore Now with SuiAI &rarr;
+            </button>
+          </Link>
         </div>
 
         <div

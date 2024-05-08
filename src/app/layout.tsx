@@ -22,10 +22,7 @@ export default async function RootLayout({
     <html lang='en'>
       <SessionProvider session={session}>
         <body className={`${inter.className} w-full flex bg-red-300 h-screen`}>
-          <main className='w-full flex  flex-col'>
-            <Header />
-            {children}
-          </main>
+          <main className='w-full flex  flex-col'>{children}</main>
         </body>
       </SessionProvider>
     </html>

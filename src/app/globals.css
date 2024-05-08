@@ -72,3 +72,19 @@ pre {
 .bord{
   border:1px solid blueviolet;
 }
+
+/* .bnav:hover .rotateIcon {
+  border-radius: 999px;
+} */
+
+.bnav:hover .rotateIcon {
+  transition: transform 0.5s ease; /* Add transition for smooth rotation */
+  border-radius: 999px;
+  scale:1.2;
+  transform: rotate(360deg); /* Rotate the icon */
+}
+
+.bnav:hover .moveText {
+  transition: transform .5s ease; /* Add transition for smooth rotation */
+  transform: translateX(10px);
+}

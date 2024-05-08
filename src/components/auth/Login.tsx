@@ -26,29 +26,27 @@ export default function Login({ changeAuth }: { changeAuth: () => void }) {
   }
 
   async function call_register(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setPending(true)
+    e.preventDefault();
+    setPending(true);
 
     const res = await signIn("credentials", {
-      redirect:false,
-      email:email,
-      password:password,
-    })
+      redirect: false,
+      email: email,
+      password: password,
+    });
 
-    console.log(res)
-    setPending(false)
-
+    console.log(res);
+    setPending(false);
   }
 
   return (
-
-    <div className=' md:w-[47%] flex relative left-10 flex-col items-center '>
+    <div className=' md:w-[47%] flex relative  flex-col items-center '>
       <div className='mb-10'>
         <h2 className='font-bold text-[36px] text-call_to_action text-center'>
-        Welcome Back
+          Welcome Back
         </h2>
         <p className=' text-center text-call_to_action'>
-        Great to have you back, let’s continue from where you left off!
+          Great to have you back, let’s continue from where you left off!
         </p>
       </div>
 
@@ -100,18 +98,18 @@ export default function Login({ changeAuth }: { changeAuth: () => void }) {
             {error}
           </span>
         )}
-       
+
         <button
           className={`w-full text-white ${
             pending ? "bg-gray-500" : "bg-call_to_action"
-          } rounded-full h-[60px] my-3 `}
+          } rounded-full h-[60px] hover:bg-slate-700 my-3 `}
           disabled={pending}
         >
           {pending ? "Signing you up..." : "Get started free"}
         </button>
       </form>
-      <p className=' text-center'>
-      Don’t have an account?   {" "}
+      <p className=' text-center mt-2'>
+        Don’t have an account?{" "}
         <button
           className='underline text-call_to_action hover:no-underline'
           onClick={changeAuth}
@@ -119,14 +117,14 @@ export default function Login({ changeAuth }: { changeAuth: () => void }) {
           Sign Up
         </button>
       </p>
-      <div className='relative border-t border-gray-400 flex justify-center w-[80%] mx-auto my-8'>
+      <div className='relative border-t border-gray-400 flex justify-center w-[80%] mx-auto my-6'>
         <span className='bg-secondary  text-gray-400 absolute top-[-12px] w-fit   px-4'>
           Or better yet...
         </span>
       </div>
       <button
         onClick={() => signIn("google")}
-        className='flex w-full rounded-full hover:bg-call_to_action  shadow-primary hover:shadow hover:bg-opacity-10 my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
+        className='flex w-full rounded-full hover:bg-stone-300  shadow-primary hover:shadow my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
       >
         <Image
           className=' '
@@ -139,7 +137,7 @@ export default function Login({ changeAuth }: { changeAuth: () => void }) {
       </button>
       <button
         onClick={() => signIn("github")}
-        className='flex w-full rounded-full hover:bg-call_to_action  shadow-primary hover:shadow hover:bg-opacity-10 duration-75 my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
+        className='flex w-full rounded-full hover:bg-stone-300  shadow-primary hover:shadow duration-75 my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
       >
         <Image
           className=' '
