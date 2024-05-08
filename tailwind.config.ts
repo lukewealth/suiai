@@ -18,6 +18,7 @@ const config: Config = {
         primary: "#A01BFE",
         call_to_action: "#100146",
         appBlue: "#1C1C1C",
+        appAsh: "#585858",
       },
     },
   },

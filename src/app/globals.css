@@ -35,6 +35,15 @@ pre {
     text-wrap: balance;
   }
 }
+/* This will hide the scrollbar for Chrome, Safari, etc. */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* This will hide the scrollbar for Firefox */
+.scrollbar-hide {
+  scrollbar-width: none;
+}
 
 .special-text {
   background: linear-gradient(45deg, #335fff, #e344ff);

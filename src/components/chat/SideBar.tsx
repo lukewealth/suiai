@@ -6,7 +6,7 @@ import { AnimatePresence, easeInOut, motion } from "framer-motion";
 import OutsideClickHandler from "react-outside-click-handler";
 
 const SideBar = () => {
-  const [popup, setPopup] = useState(!false);
+  const [popup, setPopup] = useState(false);
   const chats = [
     { title: "AI Chat Tool Ethics" },
     { title: "Al Chat Tool Impact Writing" },
