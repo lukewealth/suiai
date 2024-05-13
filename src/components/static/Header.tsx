@@ -4,10 +4,20 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 export default function Header() {
   const session = useSession();
   const router = usePathname();
   const path = router.includes("auth") || router.includes("chat");
+
+  useEffect(() => {
+    if (session?.data?.user?.email) {
+      localStorage.setItem("mail", session.data.user.email);
+    }
+    if (session?.data?.user?.name) {
+      localStorage.setItem("name", session.data.user.name);
+    }
+  }, []);
 
   if (session.status === "authenticated") {
     return (

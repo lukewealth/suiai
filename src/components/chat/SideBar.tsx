@@ -1,30 +1,83 @@
 "use client";
 import Image from "next/image";
 import ChatMessageComponent from "./ChatMessageComponent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, easeInOut, motion } from "framer-motion";
 import OutsideClickHandler from "react-outside-click-handler";
+import { Conversation, useAppContext } from "@/context";
+import { allConvos, fresh } from "@/lib/actions";
+import { useSession } from "next-auth/react";
+import useSWR from "swr";
 
 const SideBar = () => {
+  const mail =
+    typeof window !== "undefined" ? localStorage.getItem("mail") ?? "" : "";
+  const name =
+    typeof window !== "undefined" ? localStorage.getItem("name") ?? "" : "";
   const [popup, setPopup] = useState(false);
-  const chats = [
-    { title: "AI Chat Tool Ethics" },
-    { title: "Al Chat Tool Impact Writing" },
-    { title: "New chat" },
-  ];
+  const [chats, setChats] = useState<Conversation[]>([]);
+  const { setQuery, setChatId, newChat, setNewChat } = useAppContext();
+
+  const newConversation = async () => {
+    if (newChat) {
+      return;
+    }
+    setQuery("Syntax");
+    if (mail !== "") {
+      const id = await fresh(mail);
+      setNewChat(true);
+      setChatId(id);
+    }
+  };
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    const fetchConvos = async () => {
+      const allConversations: Conversation[] = await allConvos(mail);
+      const id = allConversations[allConversations.length - 1]?._id as string;
+      setChatId(id);
+      setChats(allConversations.reverse());
+    };
+    if (mail) {
+      fetchConvos();
+    }
+  }, [mail]);
+
   return (
     <section className='h-full relative w-[20%] bg-gradient-to-b flex flex-col items-center to-[#E750FF] from-[#9D1AFE]'>
       {/* New Chat Button */}
-      <button className='bg-white rounded-md text-lg  h-[40px] mt-[30px] mb-[10px] w-[90%] mx-auto'>
+      <button
+        onClick={newConversation}
+        className='bg-white active:scale-95 duration-500 hover:bg-call_to_actio hover:bg-opacity-60 hover:text-white  rounded-md text-lg  h-[40px] mt-[30px] mb-[10px] w-[90%] mx-auto'
+      >
         + NewChat
       </button>
       {/* Chat History */}
-      <div className='w-full flex flex-col items-center'>
-        {chats.map((item: any, index: number) => {
-          return (
-            <ChatMessageComponent key={index.toString()} title={item.title} />
-          );
-        })}
+      <div className='w-full flex flex-col overflow-y-scroll items-center'>
+        {chats !== undefined &&
+          chats.map((item: any, index: number) => {
+            const title = item.messages[1]?.content
+              ?.split("User query:")[1]
+              ?.slice(0, 20)
+              .concat("...");
+
+            return (
+              <button
+                key={index.toString()}
+                className='w-[90%] h-full'
+                onClick={() => {
+                  setNewChat(false);
+                  setChatId(item._id);
+                }}
+              >
+                <ChatMessageComponent title={title} />
+              </button>
+            );
+          })}
       </div>
       {/* Bottom Section */}
       <OutsideClickHandler
@@ -42,12 +95,18 @@ const SideBar = () => {
               popup && "bg-call_to_action bg-opacity-20"
             } hover:bg-call_to_action hover:bg-opacity-20  cursor-pointer  h-[50px] items-center bnav mx-auto justify-start`}
           >
-            <div className='w-6 hover:scale-110 duration-150 rotateIcon  cursor-pointer hover:rounded-full rounded-md bg-call_to_action  text-white flex items-center justify-center h-6'>
-              <p className='text-'>U</p>
-            </div>
-            <p className='text-call_to_action moveText font-medium'>
-              Uche Noble
-            </p>
+            {isClient && (
+              <div className='w-6 hover:scale-110 duration-150 rotateIcon  cursor-pointer hover:rounded-full rounded-md bg-call_to_action  text-white flex items-center justify-center h-6'>
+                <p className='text- capitalize'>
+                  {mail.slice(0, 1) || name.slice(0, 1)}
+                </p>
+              </div>
+            )}
+            {isClient && (
+              <p className='text-call_to_action moveText font-medium'>
+                {name || mail}
+              </p>
+            )}
           </button>
         </div>
         {/* Pop up section */}

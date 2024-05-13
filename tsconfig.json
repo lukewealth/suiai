@@ -34,7 +34,7 @@
     ".next/types/**/*.ts",
     "src/components/auth/Login.jsx",
     "src/app/api/register/route.js"
-  ],
+, "src/app/api/convos/route.ts"  ],
   "exclude": [
     "node_modules"
   ]

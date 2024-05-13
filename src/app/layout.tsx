@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SUI",
+  title: "SuiAI",
   description: "The Sui chat bot",
 };
 

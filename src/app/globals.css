@@ -30,10 +30,27 @@ pre {
   -o-border-radius: 5px;
 }
 
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+  .mono {
+  font-family:  'Courier New', monospace; /* Set a monospaced font, like 'Courier New' or a similar font */
+  white-space: pre-wrap; /* Preserve whitespace and wrap lines */
+  margin: 0; /* Remove default margins */
+  padding: 0.5rem; /* Add some padding for visual separation */
+}
+.smooth-scroll {
+  scroll-behavior: smooth;
+  transition: scroll-top 1s ease-in-out; /* Adjust transition for smoothness */
+}
+.scroller * {
+  overflow-anchor: none;
+}
+.anchor {
+  overflow-anchor: auto;
+}
 }
 /* This will hide the scrollbar for Chrome, Safari, etc. */
 .scrollbar-hide::-webkit-scrollbar {

@@ -1,17 +1,24 @@
 "use client";
+import { OpenIdProvider } from "@/app/auth/page";
 import { handleRegister } from "@/lib/auth/auth";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Register({ changeAuth }: { changeAuth: () => void }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function Register({
+  changeAuth,
+  begin,
+}: {
+  changeAuth: () => void;
+  begin: (p: OpenIdProvider) => Promise<void>;
+}) {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [show_password, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
 
-  const validateEmail = () => {
+  const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
@@ -127,7 +134,11 @@ export default function Register({ changeAuth }: { changeAuth: () => void }) {
         </span>
       </div>
       <button
-        onClick={() => signIn("google")}
+        onClick={() =>
+          signIn("google", {
+            callbackUrl: `${"http://localhost:3000/chat"}`,
+          })
+        }
         className='flex w-full rounded-full hover:bg-stone-300  shadow-primary hover:shadow  my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
       >
         <Image

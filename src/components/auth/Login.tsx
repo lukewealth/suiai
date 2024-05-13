@@ -1,10 +1,17 @@
 "use client";
+import { OpenIdProvider } from "@/app/auth/page";
 import { handleRegister } from "@/lib/auth/auth";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Login({ changeAuth }: { changeAuth: () => void }) {
+export default function Login({
+  changeAuth,
+  begin,
+}: {
+  changeAuth: () => void;
+  begin: (provider: OpenIdProvider) => Promise<void>;
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show_password, setShowPassword] = useState(false);
