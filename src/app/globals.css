@@ -114,3 +114,15 @@ pre {
   transition: transform .5s ease; /* Add transition for smooth rotation */
   transform: translateX(10px);
 }
+
+
+.must-be-white > *{
+  color: white!important;
+}
+
+strong, code{
+  color: white!important;
+}
+h1, h2, h3, h4, h5{
+  color: white!important;
+}
