@@ -1,5 +1,5 @@
 "use client";
-import { contracts, questions } from "@/lib/db/data";
+import { contracts, demo_data, questions } from "@/lib/db/data";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
@@ -189,6 +189,8 @@ const Chat = () => {
         </div> */}
       </section>
       {/* Body Section */}
+       {/*THIS SHOULD BE DELETED ITS JUST AN EXAMPLE */}
+    <SyntaxComponent code={demo_data} /> 
       {conversation.length > 0 && (
         <div
           ref={chatContainerRef}
@@ -273,6 +275,7 @@ const Chat = () => {
                 // }}
               >
                 {response}
+                 {/* <SyntaxComponent code={item.content} /> */}
               </div>
             </div>
           )}
