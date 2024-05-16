@@ -1,9 +1,13 @@
 import axios from "axios";
+import { baseUrl, serverUrl } from "./utils/config";
 
 /** Create a new conversation */
 export const fresh = async (user: string) => {
   try {
-    const res = await axios.post("http://localhost:5000/api/v1/conversations", {
+    // const res = await axios.post("http://localhost:5000/api/v1/conversations", {
+    //   user: user,
+    // });
+    const res = await axios.post(`${serverUrl}/api/v1/conversations`, {
       user: user,
     });
 
@@ -16,9 +20,10 @@ export const fresh = async (user: string) => {
 /** Retrieve existing conversations */
 export const getConversation = async (id: string) => {
   try {
-    const res = await axios.get(
-      `http://localhost:5000/api/v1/conversations/${id}`
-    );
+    // const res = await axios.get(
+    //   `http://localhost:5000/api/v1/conversations/${id}`
+    // );
+    const res = await axios.get(`${serverUrl}/api/v1/conversations/${id}`);
 
     return res.data;
   } catch (error: any) {
@@ -28,7 +33,7 @@ export const getConversation = async (id: string) => {
 
 export const allConvos = async (user: string) => {
   try {
-    const res = await axios.post("http://localhost:3000/api/convos", {
+    const res = await axios.post(`${baseUrl}/api/convos`, {
       user: user,
     });
 
@@ -70,8 +75,18 @@ export const sendMessage = async (
   id: string
 ) => {
   try {
+    // const res = await fetch(
+    //   `http://localhost:5000/api/v1/conversations/${id}/messages?stream=true`,
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ message: message }),
+    //   }
+    // );
     const res = await fetch(
-      `http://localhost:5000/api/v1/conversations/${id}/messages?stream=true`,
+      `${serverUrl}/api/v1/conversations/${id}/messages?stream=true`,
       {
         method: "POST",
         headers: {

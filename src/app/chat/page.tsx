@@ -15,6 +15,7 @@ import rehypeRaw from "rehype-raw";
 import Markdown from "markdown-to-jsx";
 import SyntaxComponent from "@/components/chat/SyntaxHighlighter_react";
 import { getConversation } from "@/lib/actions";
+import { serverUrl } from "@/lib/utils/config";
 const converter = new showdown.Converter({ simpleLineBreaks: true });
 
 const Chat = () => {
@@ -66,11 +67,16 @@ const Chat = () => {
     console.log("hello bros", conversation);
   };
 
+  const fetchId = async () => {
+    const conversation: Conversation = await getConversation(chatId);
+    setConversation(conversation?.messages);
+  };
+
   /**Send message to chatbot */
   const sendMessage = async () => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/v1/conversations/${chatId}/messages?stream=true`,
+        `${serverUrl}/api/v1/conversations/${chatId}/messages?stream=true`,
         {
           method: "POST",
           headers: {
@@ -100,8 +106,7 @@ const Chat = () => {
 
           if (done) {
             // If stream is done, break the loop
-            const newConvo = [...conversation, ...[assistantMessage]];
-            setConversation(newConvo);
+            fetchId();
 
             break;
           }
@@ -113,9 +118,9 @@ const Chat = () => {
           let startIndex = buffer.indexOf("data:");
           let endIndex = buffer.indexOf("\n", startIndex);
           // Create a new message object for the response
-          const newConvo = [...conversation, ...[userMessage]];
+          // const newConvo = [...conversation, ...[userMessage]];
 
-          setConversation(newConvo);
+          // setConversation(newConvo);
           while (startIndex !== -1 && endIndex !== -1) {
             const jsonStr = buffer.substring(startIndex, endIndex);
             try {
@@ -161,10 +166,6 @@ const Chat = () => {
     }
   }, []);
   useEffect(() => {
-    const fetchId = async () => {
-      const conversation: Conversation = await getConversation(chatId);
-      setConversation(conversation.messages);
-    };
     if (chatId) {
       fetchId();
     }
@@ -189,9 +190,9 @@ const Chat = () => {
         </div> */}
       </section>
       {/* Body Section */}
-       {/*THIS SHOULD BE DELETED ITS JUST AN EXAMPLE */}
-    <SyntaxComponent code={demo_data} /> 
-      {conversation.length > 0 && (
+      {/*THIS SHOULD BE DELETED ITS JUST AN EXAMPLE */}
+      {/* <SyntaxComponent code={demo_data} /> */}
+      {conversation?.length > 0 && (
         <div
           ref={chatContainerRef}
           style={{ overflowAnchor: "none" }}
@@ -199,6 +200,7 @@ const Chat = () => {
         >
           {conversation.map((item: Message, index: number) => {
             const response = converter.makeHtml(item.content);
+            // console.log(item.content);
 
             if (item.role === "user") {
               num += 1;
@@ -217,17 +219,16 @@ const Chat = () => {
                       height={33}
                     />
                   </div>
-                  <Markdown
+                  <div
                     // options={{ wrapper: "article" }}
                     className='flex-1 mono border-b leading-loose border-appGray overflow-x-scroll pb-5 scrollbar-hide  text-white'
-                    // dangerouslySetInnerHTML={{
-                    //   __html: response,
-                    // }}
+                    dangerouslySetInnerHTML={{
+                      __html: response,
+                    }}
                   >
-                    {item.content}
-                    {/* {"# Heck Yes\n\nThis is great!"} */}
-                  </Markdown>
-                  {/* <SyntaxComponent code={item.content} /> */}
+                    {/* {item.content} */}
+                  </div>
+                  {/* <SyntaxComponent code={`${item.content}`} /> */}
                 </div>
               );
             } else if (item.role == "user") {
@@ -275,7 +276,7 @@ const Chat = () => {
                 // }}
               >
                 {response}
-                 {/* <SyntaxComponent code={item.content} /> */}
+                {/* <SyntaxComponent code={item.content} /> */}
               </div>
             </div>
           )}
@@ -283,7 +284,7 @@ const Chat = () => {
       )}
       {/* Sample Queries section */}
       <AnimatePresence mode='wait'>
-        {query == "Syntax" && conversation.length == 0 && (
+        {query == "Syntax" && conversation?.length == 0 && (
           <motion.div
             initial='start'
             animate='end'
