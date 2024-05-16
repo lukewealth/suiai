@@ -8,7 +8,7 @@ const ChatMessageComponent = ({
   return (
     <div className='flex gap-3 w-[90%] hover:bg-call_to_action hover:bg-opacity-20 mx-auto rounded-md hover:cursor-pointer px-[5%] py-[4%]  my-[1%]'>
       <Image src={"/icons/message.svg"} width={24} height={24} alt='message' />
-      <p className='text-white capitalize'>{title}</p>
+      <p className='text-white'>{title}</p>
     </div>
   );
 };

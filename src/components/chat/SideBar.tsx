@@ -10,21 +10,22 @@ import { useSession } from "next-auth/react";
 import useSWR from "swr";
 
 const SideBar = () => {
-  const mail =
-    typeof window !== "undefined" ? localStorage.getItem("mail") ?? "" : "";
-  const name =
-    typeof window !== "undefined" ? localStorage.getItem("name") ?? "" : "";
+  const session = useSession();
+
   const [popup, setPopup] = useState(false);
   const [chats, setChats] = useState<Conversation[]>([]);
+  const [mail, setMail] = useState("");
+  const [name, setName] = useState("");
   const { setQuery, setChatId, newChat, setNewChat } = useAppContext();
 
   const newConversation = async () => {
     if (newChat) {
       return;
     }
+
     setQuery("Syntax");
-    if (mail !== "") {
-      const id = await fresh(mail);
+    if (session?.data?.user?.email !== "") {
+      const id = await fresh(session?.data?.user?.email as string);
       setNewChat(true);
       setChatId(id);
     }
@@ -37,32 +38,36 @@ const SideBar = () => {
 
   useEffect(() => {
     const fetchConvos = async () => {
-      const allConversations: Conversation[] = await allConvos(mail);
-      const id = allConversations[allConversations.length - 1]?._id as string;
+      const allConversations: Conversation[] = await allConvos(
+        session?.data?.user?.email as string
+      );
+      const id = allConversations[allConversations?.length - 1]?._id as string;
       setChatId(id);
-      setChats(allConversations.reverse());
+      setChats(allConversations?.reverse());
     };
-    if (mail) {
+    if (session?.data?.user?.email) {
+      setMail(session.data?.user?.email as string);
+      setName(session.data?.user?.name as string);
       fetchConvos();
     }
-  }, [mail]);
+  }, [session?.data?.user?.email]);
 
   return (
     <section className='h-full relative w-[20%] bg-gradient-to-b flex flex-col items-center to-[#E750FF] from-[#9D1AFE]'>
       {/* New Chat Button */}
       <button
         onClick={newConversation}
-        className='bg-white active:scale-95 duration-500 hover:bg-call_to_actio hover:bg-opacity-60 hover:text-white  rounded-md text-lg  h-[40px] mt-[30px] mb-[10px] w-[90%] mx-auto'
+        className='bg-white active:scale-95  duration-300 hover:shadow-xl shadow-appGRay hover:-translate-y-[2px]  rounded-md text-lg  h-[40px] mt-[30px] mb-[10px] w-[90%] mx-auto'
       >
         + NewChat
       </button>
       {/* Chat History */}
-      <div className='w-full flex flex-col overflow-y-scroll items-center'>
+      <div className='w-full flex flex-col h-[70%]  overflow-y-scroll items-center'>
         {chats !== undefined &&
           chats.map((item: any, index: number) => {
             const title = item.messages[1]?.content
-              ?.split("User query:")[1]
-              ?.slice(0, 20)
+              // ?.split("User query:")[1]
+              ?.slice(0, 19)
               .concat("...");
 
             return (

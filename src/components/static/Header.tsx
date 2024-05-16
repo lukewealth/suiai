@@ -17,7 +17,7 @@ export default function Header() {
     if (session?.data?.user?.name) {
       localStorage.setItem("name", session.data.user.name);
     }
-  }, []);
+  }, [session?.data?.user]);
 
   if (session.status === "authenticated") {
     return (

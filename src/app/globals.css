@@ -9,6 +9,21 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgb(178, 255, 174);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

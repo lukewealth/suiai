@@ -7,7 +7,7 @@ import SampleQuestion from "@/components/chat/SampleQuestion";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { Conversation, Message, useAppContext } from "@/context";
-import { userId, dotVariants, assistantId } from "@/lib/utils/variables";
+import { dotVariants } from "@/lib/utils/variables";
 import showdown from "showdown";
 import { remark } from "remark";
 import html from "remark-html";
@@ -15,12 +15,12 @@ import rehypeRaw from "rehype-raw";
 import Markdown from "markdown-to-jsx";
 import SyntaxComponent from "@/components/chat/SyntaxHighlighter_react";
 import { getConversation } from "@/lib/actions";
+const converter = new showdown.Converter({ simpleLineBreaks: true });
 
 const Chat = () => {
-  const converter = new showdown.Converter({ simpleLineBreaks: true });
-  showdown.setOption("simpleLineBreaks", true);
-  var defaultOptions = showdown.getOption("simpleLineBreaks");
-  console.log(defaultOptions);
+  // showdown.setOption("simpleLineBreaks", true);
+  // var defaultOptions = showdown.getOption("simpleLineBreaks");
+  // console.log(defaultOptions);
 
   const [message, setValue] = useState<string>("");
   const [response, setResponse] = useState("");
@@ -60,7 +60,6 @@ const Chat = () => {
         element.classList.remove("smooth-scroll");
       }, 200); // Adjust delay for desired animation duration
     }
-    console.log(userId, assistantId);
 
     // Clear input
     setValue("");
@@ -136,7 +135,7 @@ const Chat = () => {
               console.error("Error parsing JSON:", error.message);
             }
 
-            // Remove the parsed JSON object from the buffer
+            // // Remove the parsed JSON object from the buffer
             buffer = buffer.substring(endIndex + 1);
 
             // Check for next JSON object in the buffer
@@ -267,7 +266,7 @@ const Chat = () => {
               </div>
               <div
                 className={`flex-1 border-b mono leading-loose ${
-                  response.includes("## Thinking..") && "animate-pulse"
+                  response.includes("Thinking..") && "animate-pulse"
                 } border-appGray overflow-x-scroll pb-5 scrollbar-hide  text-white`}
                 // dangerouslySetInnerHTML={{
                 //   __html: converter.makeHtml(response),
@@ -407,19 +406,19 @@ const Chat = () => {
           <TextareaAutosize
             value={message}
             maxRows={8}
-            // onKeyDown={(e) => {
-            //   // e.preventDefault();
-            //   if (e.key === "Enter") {
-            //     // Send message on press of Enter
+            onKeyDown={(e) => {
+              if (e.key == "Enter" && !e.shiftKey) {
+                // Send message on prssess of Enter
 
-            //     addNewMessage();
-            //     // sendMessage(value, setResponse, chatId);
-            //   }
-            // }}
+                e.preventDefault(); // Prevent default form submission or line break behavior
+                addNewMessage();
+                sendMessage();
+              }
+            }}
             // minRows={1}
             onChange={(e) => setValue(e.target.value)}
             placeholder='Talk to SuiAI...'
-            className=' w-full text-lg resize-none flex py-[1em] scrollbar-hide   items-center justify-start focus:outline-none min-h-[52px] max-h-[400px] pl-[2%]  pr-[5%] rounded-[8px] bg-white'
+            className=' w-full text-sm resize-none flex py-[1em] scrollbar-hide   items-center justify-start focus:outline-none min-h-[52px] max-h-[400px] pl-[2%]  pr-[5%] rounded-[8px] bg-white'
           />
           <button
             onClick={(e) => {
@@ -431,7 +430,7 @@ const Chat = () => {
             <Image
               className={`${
                 message === "" ? "opacity-30" : "opacity-100"
-              } absolute right-3 bottom-5`}
+              } absolute right-3 bottom-3`}
               // className='absolute right-3 bottom-5'
               src={"icons/send.svg"}
               width={24}
