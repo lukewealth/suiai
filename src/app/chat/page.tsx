@@ -42,10 +42,9 @@ const Chat = () => {
     };
 
     // Create a new message object for the response
-    const newConvo = [...conversation, ...[userMessage]];
+    const newConvo = conversation?.length > 0 ? [...conversation, ...[userMessage]]:[userMessage];
 
     setConversation(newConvo);
-
     // Scroll to bottom
     if (chatContainerRef.current) {
       const element = chatContainerRef.current;
@@ -74,6 +73,7 @@ const Chat = () => {
 
   /**Send message to chatbot */
   const sendMessage = async () => {
+    console.log(chatId)
     try {
       const res = await fetch(
         `${serverUrl}/api/v1/conversations/${chatId}/messages?stream=true`,
@@ -200,7 +200,7 @@ const Chat = () => {
         >
           {conversation.map((item: Message, index: number) => {
             const response = converter.makeHtml(item.content);
-            // console.log(item.content);
+             console.log(item);
 
             if (item.role === "user") {
               num += 1;
@@ -221,14 +221,14 @@ const Chat = () => {
                   </div>
                   <div
                     // options={{ wrapper: "article" }}
-                    className='flex-1 mono border-b leading-loose border-appGray overflow-x-scroll pb-5 scrollbar-hide  text-white'
-                    dangerouslySetInnerHTML={{
-                      __html: response,
-                    }}
+                    // className='flex-1 mono border-b leading-loose border-appGray overflow-x-scroll pb-5 scrollbar-hide  text-white'
+                    // dangerouslySetInnerHTML={{
+                    //   __html: response,
+                    // }}
                   >
                     {/* {item.content} */}
                   </div>
-                  {/* <SyntaxComponent code={`${item.content}`} /> */}
+                  <SyntaxComponent code={item.content} />
                 </div>
               );
             } else if (item.role == "user") {
@@ -356,7 +356,7 @@ const Chat = () => {
 
       {/* Bottom INput section */}
       <div className='absolute w-[75%] self-center bottom-[1%]'>
-        {conversation.length < 2 && (
+        {conversation?.length < 2 && (
           <div className='flex animate-pulse mb-2 gap-3 '>
             <button
               onClick={() => setQuery("Syntax")}
