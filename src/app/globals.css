@@ -11,17 +11,18 @@
 
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 3px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: rgb(178, 255, 174);
+  background: transparent
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: black
+  background: #F8F4FB
+  
 }
 
 @media (prefers-color-scheme: dark) {
@@ -138,6 +139,19 @@ pre {
 strong, code{
   color: white!important;
 }
-h1, h2, h3, h4, h5{
+/* h1, h2, h3, h4, h5{
   color: white!important;
+} */
+
+h1{
+  font-size: x-large;
+  font-weight: 700;
+}
+
+h2{
+font-size: larger;
+}
+h3{
+  color: red;
+  font-weight: 500;
 }

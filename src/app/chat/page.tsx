@@ -12,10 +12,14 @@ import showdown from "showdown";
 import { remark } from "remark";
 import html from "remark-html";
 import rehypeRaw from "rehype-raw";
-import Markdown from "markdown-to-jsx";
+import Markdown, { compiler } from "markdown-to-jsx";
 import SyntaxComponent from "@/components/chat/SyntaxHighlighter_react";
 import { getConversation } from "@/lib/actions";
 import { serverUrl } from "@/lib/utils/config";
+import Typewriter from "typewriter-effect";
+import { stringify } from "querystring";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 const converter = new showdown.Converter({ simpleLineBreaks: true });
 
 const Chat = () => {
@@ -28,17 +32,20 @@ const Chat = () => {
   const [mail, setMail] = useState("");
   const [name, setName] = useState("");
   let [conversation, setConversation] = useState<Message[]>([]);
-  const { query, setQuery, chatId } = useAppContext();
+  const { query, setQuery, setNewChat, chatId } = useAppContext();
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const session = useSession();
+  const router = useRouter();
+  const initialResponse = response.replace(/\\n/g, "\n");
   // Counter for each user message
   let num = 0;
 
   // Inside the Chat component
-  const addNewMessage = () => {
+  const addNewMessage = (question: string) => {
     setResponse("Thinking.....");
     const userMessage = {
       role: "user",
-      content: message,
+      content: question,
     };
 
     // Create a new message object for the response
@@ -73,7 +80,7 @@ const Chat = () => {
   };
 
   /**Send message to chatbot */
-  const sendMessage = async () => {
+  const sendMessage = async (question: string) => {
     try {
       const res = await fetch(
         `${serverUrl}/api/v1/conversations/${chatId}/messages?stream=true`,
@@ -82,7 +89,7 @@ const Chat = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ message: message }),
+          body: JSON.stringify({ message: question }),
         }
       );
       if (!res) {
@@ -107,6 +114,7 @@ const Chat = () => {
           if (done) {
             // If stream is done, break the loop
             fetchId();
+            setResponse("");
 
             break;
           }
@@ -170,6 +178,13 @@ const Chat = () => {
       fetchId();
     }
   }, [chatId]);
+  useEffect(() => {
+    //console.log(session.status)
+
+    if (session.status === "unauthenticated") {
+      router.replace("/auth");
+    }
+  });
 
   return (
     <div className='w-full relative overflow-hidden flex flex-col h-full'>
@@ -199,9 +214,7 @@ const Chat = () => {
           className='h-[74%] overflow-y-scroll scroller  pb-14 duration-1000 self-center scrollbar-hide  w-[75%]'
         >
           {conversation.map((item: Message, index: number) => {
-            const response = converter.makeHtml(item.content);
-            // console.log(item.content);
-
+            const res = item.content.replace(/\\n/g, "\n");
             if (item.role === "user") {
               num += 1;
             }
@@ -219,16 +232,7 @@ const Chat = () => {
                       height={33}
                     />
                   </div>
-                  <div
-                    // options={{ wrapper: "article" }}
-                    className='flex-1 mono border-b leading-loose border-appGray overflow-x-scroll pb-5 scrollbar-hide  text-white'
-                    dangerouslySetInnerHTML={{
-                      __html: response,
-                    }}
-                  >
-                    {/* {item.content} */}
-                  </div>
-                  {/* <SyntaxComponent code={`${item.content}`} /> */}
+                  <SyntaxComponent code={res} />
                 </div>
               );
             } else if (item.role == "user") {
@@ -267,32 +271,51 @@ const Chat = () => {
                   height={33}
                 />
               </div>
-              <div
-                className={`flex-1 border-b mono leading-loose ${
-                  response.includes("Thinking..") && "animate-pulse"
-                } border-appGray overflow-x-scroll pb-5 scrollbar-hide  text-white`}
-                // dangerouslySetInnerHTML={{
-                //   __html: converter.makeHtml(response),
-                // }}
-              >
-                {response}
-                {/* <SyntaxComponent code={item.content} /> */}
-              </div>
+              <SyntaxComponent code={initialResponse} />
             </div>
           )}
         </div>
       )}
+      {/* Default System Message */}
+      <AnimatePresence mode='wait'>
+        {conversation?.length <= 1 && (
+          <motion.div
+            // key={index.toString()}
+            variants={dotVariants}
+            transition={{
+              duration: 0.1,
+              // repeat: Infinity,
+              // repeatType: "reverse",
+            }}
+            className='h-max absolute bottom-[65%] self-center flex flex-col gap-4 items-center w-max'
+          >
+            <Image src={"/icons/logo.svg"} width={40} height={40} alt='logob' />
+            <div className='text-white text-2xl special-text-2 cursor flex'>
+              <Typewriter
+                options={{
+                  strings: [
+                    "I am SuiAI, how can i help you today?",
+                    "You can start with some of the example queries below.",
+                  ],
+                  autoStart: true,
+                  loop: true,
+                }}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Sample Queries section */}
       <AnimatePresence mode='wait'>
         {query == "Syntax" && conversation?.length == 0 && (
           <motion.div
             initial='start'
             animate='end'
-            exit='exit'
+            // exit='exit'
             transition={{
-              duration: 0.3,
-              staggerChildren: 0.2,
-              delayChildren: 0.1,
+              duration: 0.6,
+              staggerChildren: 0.3,
+              delayChildren: 0.2,
             }}
             className='w-[75%] absolute bottom-[22%]  grid grid-cols-2  place-items-center gap-4 self-center'
           >
@@ -303,13 +326,21 @@ const Chat = () => {
                   key={`question_${item.q}_${query}`} // Unique key based on content and queries
                   variants={dotVariants}
                   transition={{
-                    duration: 0.3,
+                    duration: 0.1,
                     // repeat: Infinity,
                     // repeatType: "reverse",
                   }}
                   className='h-max  flex w-max'
                 >
-                  <button className='flex' onClick={() => setQuery(item.q)}>
+                  <button
+                    className='flex'
+                    onClick={() => {
+                      setQuery("");
+                      addNewMessage(item.q);
+                      sendMessage(item.q);
+                      setNewChat(false);
+                    }}
+                  >
                     <SampleQuestion question={item.q} />;
                   </button>
                 </motion.div>
@@ -323,7 +354,7 @@ const Chat = () => {
           <motion.div
             initial='start'
             animate='end'
-            exit='exit'
+            // exit='exit'
             transition={{
               duration: 0.3,
               staggerChildren: 0.2,
@@ -344,7 +375,15 @@ const Chat = () => {
                   }}
                   className='h-max  flex w-max'
                 >
-                  <button className='flex' onClick={() => setQuery(item.q)}>
+                  <button
+                    className='flex'
+                    onClick={() => {
+                      setQuery("");
+                      addNewMessage(item.q);
+                      sendMessage(item.q);
+                      setNewChat(false);
+                    }}
+                  >
                     <SampleQuestion question={item.q} />;
                   </button>
                 </motion.div>
@@ -415,8 +454,8 @@ const Chat = () => {
                 // Send message on prssess of Enter
 
                 e.preventDefault(); // Prevent default form submission or line break behavior
-                addNewMessage();
-                sendMessage();
+                addNewMessage(message);
+                sendMessage(message);
               }
             }}
             // minRows={1}
@@ -426,8 +465,8 @@ const Chat = () => {
           />
           <button
             onClick={(e) => {
-              addNewMessage();
-              sendMessage();
+              addNewMessage(message);
+              sendMessage(message);
             }}
             disabled={message === ""}
           >

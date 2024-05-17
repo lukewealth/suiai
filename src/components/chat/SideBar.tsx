@@ -62,18 +62,16 @@ const SideBar = () => {
         + NewChat
       </button>
       {/* Chat History */}
-      <div className='w-full flex flex-col h-[70%]  overflow-y-scroll items-center'>
+      <div className='w-full flex flex-col h-[70%]  overflow-y-scroll  justify-start items-center'>
         {chats !== undefined &&
           chats.map((item: any, index: number) => {
-            const title = item.messages[1]?.content
-              // ?.split("User query:")[1]
-              ?.slice(0, 19)
-              .concat("...");
+            const title = item.messages[1]?.content;
+            // ?.split("User query:")[1]
 
             return (
               <button
                 key={index.toString()}
-                className='w-[90%] h-full'
+                className='w-[90%]  h-max'
                 onClick={() => {
                   setNewChat(false);
                   setChatId(item._id);
@@ -126,7 +124,7 @@ const SideBar = () => {
               className='absolute bottom-[9%] text-[#666666] px-6 pt-5 flex flex-col self-start ml-2 w-[90.25%] h-max shadow-[0px_0px_10px_#D7D7D7] rounded-[12px] bg-white'
             >
               <div className='font-medium text-sm border-b opacity-80 border-[#666666] border-opacity-50 pb-1'>
-                uchenoble@gmail.com
+                {mail}
               </div>
               <section className='flex flex-col py-[10px] mt-[5px]'>
                 <div className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'>

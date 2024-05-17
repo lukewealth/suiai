@@ -31,7 +31,7 @@ export default function Header() {
         <Image
           width={100}
           height={50}
-          src={"/images/ailogo.png"}
+          src={"/images/ailogob.png"}
           alt=''
           className=' w-fit'
         />

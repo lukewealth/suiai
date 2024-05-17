@@ -5,13 +5,7 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Login({
-  changeAuth,
-  begin,
-}: {
-  changeAuth: () => void;
-  begin: (provider: OpenIdProvider) => Promise<void>;
-}) {
+export default function Login({ changeAuth }: { changeAuth: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show_password, setShowPassword] = useState(false);
@@ -67,7 +61,7 @@ export default function Login({
             value={email}
             onInput={handleEmail}
             required
-            className='bg-white rounded-lg px-[16px] h-[60px] outline-none'
+            className='bg-white rounded-lg px-[16px] h-[8vh] outline-none'
           />
         </div>
 
@@ -81,7 +75,7 @@ export default function Login({
               value={password}
               onInput={handlePass}
               required
-              className='bg-white rounded-lg px-[16px] h-[60px] outline-none w-full'
+              className='bg-white rounded-lg px-[16px] h-[8vh] outline-none w-full'
             />
             <button
               type='button'
@@ -109,7 +103,7 @@ export default function Login({
         <button
           className={`w-full text-white ${
             pending ? "bg-gray-500" : "bg-call_to_action"
-          } rounded-full h-[60px] hover:bg-slate-700 my-3 `}
+          } rounded-full h-[8vh] hover:bg-slate-700 my-3 `}
           disabled={pending}
         >
           {pending ? "Signing you up..." : "Get started free"}
@@ -124,14 +118,14 @@ export default function Login({
           Sign Up
         </button>
       </p>
-      <div className='relative border-t border-gray-400 flex justify-center w-[80%] mx-auto my-6'>
+      <div className='relative border-t border-gray-400 flex justify-center w-[80%] mx-auto my-4'>
         <span className='bg-secondary  text-gray-400 absolute top-[-12px] w-fit   px-4'>
           Or better yet...
         </span>
       </div>
       <button
         onClick={() => signIn("google")}
-        className='flex w-full rounded-full hover:bg-stone-300  shadow-primary hover:shadow my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
+        className='flex w-full rounded-full hover:bg-stone-300  shadow-primary hover:shadow my-3 justify-center items-center gap-4 border h-[8vh] border-gray-400'
       >
         <Image
           className=' '
@@ -144,7 +138,7 @@ export default function Login({
       </button>
       <button
         onClick={() => signIn("github")}
-        className='flex w-full rounded-full hover:bg-stone-300  shadow-primary hover:shadow duration-75 my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
+        className='flex w-full rounded-full hover:bg-stone-300  shadow-primary hover:shadow duration-75 my-3 justify-center items-center gap-4 border h-[8vh] border-gray-400'
       >
         <Image
           className=' '

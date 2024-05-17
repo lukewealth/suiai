@@ -5,13 +5,7 @@ import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function Register({
-  changeAuth,
-  begin,
-}: {
-  changeAuth: () => void;
-  begin: (p: OpenIdProvider) => Promise<void>;
-}) {
+export default function Register({ changeAuth }: { changeAuth: () => void }) {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [show_password, setShowPassword] = useState(false);
@@ -46,10 +40,10 @@ export default function Register({
   }
 
   return (
-    <div className=' md:w-[47%] flex relative  flex-col items-center '>
+    <div className=' md:w-[47%]  flex relative  flex-col items-center '>
       <div className='mb-10'>
         <h2 className='font-bold text-[36px] text-call_to_action text-center'>
-          Sign up with free trail
+          Sign up with free trial
         </h2>
         <p className=' text-center text-call_to_action'>
           Empower your experience, sign up for a free account today{" "}
@@ -66,7 +60,7 @@ export default function Register({
             value={email}
             onInput={handleEmail}
             required
-            className='bg-white rounded-lg px-[16px] h-[60px] outline-none'
+            className='bg-white rounded-lg px-[16px] h-[8vh] outline-none'
           />
         </div>
 
@@ -80,7 +74,7 @@ export default function Register({
               value={password}
               onInput={handlePass}
               required
-              className='bg-white rounded-lg px-[16px] h-[60px] outline-none w-full'
+              className='bg-white rounded-lg px-[16px] h-[8vh] outline-none w-full'
             />
             <button
               type='button'
@@ -113,7 +107,7 @@ export default function Register({
         <button
           className={`w-full text-white ${
             pending ? "bg-gray-500" : "bg-call_to_action"
-          } rounded-full  hover:bg-slate-700 h-[60px] my-3 `}
+          } rounded-full  hover:bg-slate-700 h-[8vh] my-3 `}
           disabled={pending}
         >
           {pending ? "Signing you up..." : "Get started free"}
@@ -139,7 +133,7 @@ export default function Register({
             callbackUrl: `${"http://localhost:3000/chat"}`,
           })
         }
-        className='flex w-full rounded-full hover:bg-stone-300  shadow-primary hover:shadow  my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
+        className='flex w-full rounded-full hover:bg-stone-300  shadow-primary hover:shadow  my-3 justify-center items-center gap-4 border h-[8vh] border-gray-400'
       >
         <Image
           className=' '
@@ -152,7 +146,7 @@ export default function Register({
       </button>
       <button
         onClick={() => signIn("github")}
-        className='flex w-full rounded-full  shadow-primary hover:shadow hover:bg-stone-300 duration-75 my-4 justify-center items-center gap-4 border h-[60px] border-gray-400'
+        className='flex w-full rounded-full  shadow-primary hover:shadow hover:bg-stone-300 duration-75 my-3 justify-center items-center gap-4 border h-[8vh] border-gray-400'
       >
         <Image
           className=' '

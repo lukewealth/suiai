@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 /**
  * Represents a Mongoose model for the User.
  * @typedef {import('mongoose').Model<User & import('mongoose').Document>} UserModelType
@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-     // required: true,
+      // required: true,
     },
   },
   {
@@ -35,4 +35,5 @@ const UserSchema = new mongoose.Schema(
  * User Model for MongoDB.
  * @type {UserModelType}
  */
-export const UserModel = mongoose.models.User ?? mongoose.model('User', UserSchema);
+export const UserModel =
+  mongoose.models.User ?? mongoose.model("User", UserSchema);

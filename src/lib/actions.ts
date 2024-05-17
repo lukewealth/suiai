@@ -36,6 +36,7 @@ export const allConvos = async (user: string) => {
     const res = await axios.post(`${baseUrl}/api/convos`, {
       user: user,
     });
+    console.log(res.data);
 
     return res.data;
   } catch (error: any) {

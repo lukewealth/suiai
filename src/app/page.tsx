@@ -17,9 +17,9 @@ export default function Home() {
   return (
     <div className='flex-grow flex items-center  bg-call_to_action '>
       <Header />
-      <section className='flex w-full  text-white  px-12 lg:px-[4em] justify-between items-center h-[45%] self-center'>
+      <section className='flex w-full  text-white  px-[2vw] justify-between items-center h-[45%] self-center'>
         <div
-          className='w-[42em] h-full flex flex-col justify-between '
+          className='w-[42em] h-full  flex flex-col justify-between '
           data-aos='zoom-out-right'
           data-aos-duration='1000'
           data-aos-anchor-placement='top-center'
@@ -48,7 +48,7 @@ export default function Home() {
           data-aos='fade-up'
           data-aos-anchor-placement='top-bottom'
           data-aos-duration='100'
-          className='flex flex-col  h-full w-[37em] lg:w-[46em] justify-start items-end'
+          className='flex flex-col   h-full w-[50%]  justify-start items-end'
         >
           <h1 className='flex special-text-2 cursor text-3xl font-[600]'>
             <Typewriter
@@ -62,19 +62,10 @@ export default function Home() {
               }}
             />
           </h1>
-          {/* <div className="flex w-[82vh] h-42 mt-[-4rem] lg:mt-[-4rem] mr-[-8em] relative">
-            <Image
-              width={200}
-              height={50}
-              alt="landing-page"
-              className="w-fit rounded-b-[70px]"
-              src={"/images/hero_AI.png"}
-            />
-          </div> */}
         </div>
       </section>
 
-      <section className='flex text-white absolute bottom-0 gap-9 px-12 justify-end items-center py-4 w-full'>
+      <section className='flex text-white text-sm absolute bottom-0 gap-7 px-12 justify-end items-center py-4 w-full'>
         <div>Terms & Condition</div>
         <div>Privacy Policy</div>
       </section>

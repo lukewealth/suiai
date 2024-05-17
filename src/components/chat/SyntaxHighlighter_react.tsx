@@ -5,13 +5,13 @@ import Markdown from "markdown-to-jsx";
 export default function CodeComponent({ code }: { code: string }) {
   const messageParts = code.split(/```/);
   return (
-    <section className='w-[90%] text-white pb-[100x]'>
+    <section className='w-full border-b  text-white pb-[100x]'>
       {messageParts.map((part, i) =>
         i % 2 === 0 ? (
           <Markdown
             key={i}
             options={{ wrapper: "aside", forceWrapper: true }}
-            className='flex-1 mono prose  border-b leading-loose border-appGray overflow-x-scroll pb-5 scrollbar-hide  text-white'
+            className='flex-1 mono prose max-w-full leading-loose overflow-x-scroll pb-5 scrollbar-hide  text-white'
             // className='whitespace-pre-wrap prose lg:prose-xl text-white'
           >
             {part}
