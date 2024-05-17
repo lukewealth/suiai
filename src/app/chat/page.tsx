@@ -49,10 +49,12 @@ const Chat = () => {
     };
 
     // Create a new message object for the response
-    const newConvo = [...conversation, ...[userMessage]];
+    const newConvo =
+      conversation?.length > 0
+        ? [...conversation, ...[userMessage]]
+        : [userMessage];
 
     setConversation(newConvo);
-
     // Scroll to bottom
     if (chatContainerRef.current) {
       const element = chatContainerRef.current;
@@ -395,7 +397,7 @@ const Chat = () => {
 
       {/* Bottom INput section */}
       <div className='absolute w-[75%] self-center bottom-[1%]'>
-        {conversation.length < 2 && (
+        {conversation?.length < 2 && (
           <div className='flex animate-pulse mb-2 gap-3 '>
             <button
               onClick={() => setQuery("Syntax")}
