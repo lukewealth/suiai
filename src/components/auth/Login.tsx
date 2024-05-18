@@ -10,15 +10,16 @@ export default function Login({ changeAuth }: { changeAuth: () => void }) {
   const [password, setPassword] = useState("");
   const [show_password, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [pending, setPending] = useState(false);
 
-  const validateEmail = () => {
+  const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
   function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
-    setError(validateEmail() ? "" : "Invalid email address");
+    setError(validateEmail(e.target.value) ? "" : "Invalid email address");
     setEmail(e.target.value);
   }
 
@@ -31,12 +32,17 @@ export default function Login({ changeAuth }: { changeAuth: () => void }) {
     setPending(true);
 
     const res = await signIn("credentials", {
-      redirect: false,
+      redirect: !true,
       email: email,
       password: password,
     });
 
     console.log(res);
+    if (res?.ok) {
+      setSuccess("Signin Successfull!");
+    } else {
+      setError("Invalid SignIn Details");
+    }
     setPending(false);
   }
 
@@ -99,14 +105,19 @@ export default function Login({ changeAuth }: { changeAuth: () => void }) {
             {error}
           </span>
         )}
+        {success !== "" && (
+          <span className=' bg-green-200 text-green-500 rounded-3xl w-full px-10 py-2 text-sm'>
+            {success}
+          </span>
+        )}
 
         <button
           className={`w-full text-white ${
-            pending ? "bg-gray-500" : "bg-call_to_action"
+            pending ? "bg-gray-500 animate-pulse" : "bg-call_to_action"
           } rounded-full h-[8vh] hover:bg-slate-700 my-3 `}
           disabled={pending}
         >
-          {pending ? "Signing you up..." : "Get started free"}
+          {pending ? "Logging in..." : "Login"}
         </button>
       </form>
       <p className=' text-center mt-2'>

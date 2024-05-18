@@ -147,12 +147,14 @@ strong, code{
 h1{
   font-size: x-large;
   font-weight: 700;
+  color: white;
 }
 
 h2{
 font-size: larger;
+color: white;
 }
 h3{
-  color: red;
+  color: white;
   font-weight: 500;
 }

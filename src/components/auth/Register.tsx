@@ -10,6 +10,7 @@ export default function Register({ changeAuth }: { changeAuth: () => void }) {
   const [password, setPassword] = useState<string>("");
   const [show_password, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [pending, setPending] = useState(false);
 
   const validateEmail = (email: string) => {
@@ -30,11 +31,16 @@ export default function Register({ changeAuth }: { changeAuth: () => void }) {
     e.preventDefault();
     setPending(true);
     let res = await handleRegister({ email, password });
-    if (!res?.data?.success) {
-      setError(res?.data?.message);
+    console.log(res);
+
+    if (res?.status !== 200) {
+      setError(res);
     }
-    if (res?.data?.success) {
-      changeAuth();
+    if (res?.status == 200) {
+      setSuccess(res?.data?.message);
+      setTimeout(() => {
+        changeAuth();
+      }, 1500);
     }
     setPending(false);
   }
@@ -96,6 +102,11 @@ export default function Register({ changeAuth }: { changeAuth: () => void }) {
         {error !== "" && (
           <span className=' bg-red-200 text-red-500 rounded-3xl w-full px-10 py-2 text-sm'>
             {error}
+          </span>
+        )}
+        {success !== "" && (
+          <span className=' bg-green-200 text-green-500 rounded-3xl w-full px-10 py-2 text-sm'>
+            {success}
           </span>
         )}
         {/* <p>

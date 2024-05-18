@@ -6,7 +6,8 @@ import { AnimatePresence, easeInOut, motion } from "framer-motion";
 import OutsideClickHandler from "react-outside-click-handler";
 import { Conversation, useAppContext } from "@/context";
 import { allConvos, fresh } from "@/lib/actions";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
+
 import useSWR from "swr";
 
 const SideBar = () => {
@@ -172,7 +173,10 @@ const SideBar = () => {
                   />
                   <p className='font-medium text-sm '>API</p>
                 </div>
-                <div className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'>
+                <button
+                  onClick={() => signOut()}
+                  className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'
+                >
                   <Image
                     src={"icons/logout.svg"}
                     alt='logout'
@@ -180,7 +184,7 @@ const SideBar = () => {
                     height={16}
                   />
                   <p className='font-medium text-sm '>Logout</p>
-                </div>
+                </button>
               </section>
             </motion.div>
           )}

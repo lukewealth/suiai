@@ -15,5 +15,7 @@ export async function handleRegister({
     return res;
   } catch (error: any) {
     console.log(error.message);
+    console.log(error.response.data.message);
+    return error.response.data.message;
   }
 }

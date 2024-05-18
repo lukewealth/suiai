@@ -14,7 +14,7 @@ import html from "remark-html";
 import rehypeRaw from "rehype-raw";
 import Markdown, { compiler } from "markdown-to-jsx";
 import SyntaxComponent from "@/components/chat/SyntaxHighlighter_react";
-import { getConversation } from "@/lib/actions";
+import { fresh, getConversation } from "@/lib/actions";
 import { serverUrl } from "@/lib/utils/config";
 import Typewriter from "typewriter-effect";
 import { stringify } from "querystring";
@@ -32,7 +32,7 @@ const Chat = () => {
   const [mail, setMail] = useState("");
   const [name, setName] = useState("");
   let [conversation, setConversation] = useState<Message[]>([]);
-  const { query, setQuery, setNewChat, chatId } = useAppContext();
+  const { query, setQuery, setNewChat, chatId, setChatId } = useAppContext();
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const session = useSession();
   const router = useRouter();
@@ -83,6 +83,15 @@ const Chat = () => {
 
   /**Send message to chatbot */
   const sendMessage = async (question: string) => {
+    if (!chatId) {
+      try {
+        const id = await fresh(mail);
+        setChatId(id);
+      } catch (error) {
+        console.log(error);
+        return;
+      }
+    }
     try {
       const res = await fetch(
         `${serverUrl}/api/v1/conversations/${chatId}/messages?stream=true`,
@@ -280,7 +289,7 @@ const Chat = () => {
       )}
       {/* Default System Message */}
       <AnimatePresence mode='wait'>
-        {conversation?.length <= 1 && (
+        {conversation?.length == 0 && (
           <motion.div
             // key={index.toString()}
             variants={dotVariants}
