@@ -1,9 +1,5 @@
 "use client";
-import { allConvos, getConversation } from "@/lib/actions";
-import mongoose from "mongoose";
-import { useSession } from "next-auth/react";
 import { createContext, useContext, useEffect, useState } from "react";
-import useSWR from "swr";
 
 const AppContext = createContext<any>("");
 export type Message = {

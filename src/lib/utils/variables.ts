@@ -1,9 +1,4 @@
 // "use server";
-import mongoose from "mongoose";
-
-export let userId = new mongoose.Types.ObjectId().toString();
-export let assistantId = new mongoose.Types.ObjectId().toString();
-
 export const dotVariants = {
   start: {
     x: "0%",

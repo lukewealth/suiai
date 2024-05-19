@@ -5,7 +5,6 @@ import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "@/lib/db/mongo";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { UserModel } from "@/lib/models/user";
 import bcrypt from "bcrypt";
 
 interface MongoUser extends User {

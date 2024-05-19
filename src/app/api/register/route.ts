@@ -1,49 +1,5 @@
 import clientPromise from "@/lib/db/mongo";
-import { UserModel } from "@/lib/models/user";
 import bcrypt from "bcrypt";
-
-// export async function POST(req) {
-//   try {
-//     const req_data = await req.json();
-//     const client = await dbConnect();
-
-//     const data = {
-//       email: req_data.email,
-//       password: await bcrypt.hash(req_data.password, 10),
-//     };
-
-//     const already_exist = await UserModel.findOne({ email: data.email });
-
-//     // Check if the email already exists in the database
-//     if (already_exist) {
-//       return Response.json({ success: false, message: "User already exist" });
-//     }
-
-//     //Check if any required field is missing
-//     const requiredFields = ["password", "email"];
-//     for (const field of requiredFields) {
-//       if (!data[field]) {
-//         return Response.json({
-//           success: false,
-//           message: `${field} is required`,
-//         });
-//       }
-//     }
-
-//     // Insert the new user into the database
-//     (await UserModel.create(data)).save();
-
-//     await dbDisconnect();
-//     return Response.json({ success: true, message: "User saved" });
-//   } catch (error) {
-//     console.error(error.message);
-//     await dbDisconnect();
-//     return Response.json(
-//       { success: false, message: "An error occurred" },
-//       { status: 500 }
-//     );
-//   }
-// }
 async function create(req: Request) {
   try {
     const body = await req.json();
