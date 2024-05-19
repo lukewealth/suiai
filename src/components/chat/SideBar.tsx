@@ -51,7 +51,7 @@ const SideBar = () => {
       setName(session.data?.user?.name as string);
       fetchConvos();
     }
-  }, [session?.data?.user?.email]);
+  }, [session?.data?.user?.email, session?.data?.user?.name, setChatId]);
 
   return (
     <section className='h-full relative w-[20%] bg-gradient-to-b flex flex-col items-center to-[#E750FF] from-[#9D1AFE]'>

@@ -11,7 +11,7 @@ import bcrypt from "bcrypt";
 interface MongoUser extends User {
   password: string;
 }
-export const auth_provider_options: AuthOptions = {
+const auth_provider_options: AuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
     CredentialsProvider({

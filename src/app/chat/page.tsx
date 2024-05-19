@@ -188,7 +188,7 @@ const Chat = () => {
     if (chatId) {
       fetchId();
     }
-  }, [chatId]);
+  }, [chatId, fetchId, conversation]);
   useEffect(() => {
     //console.log(session.status)
 
