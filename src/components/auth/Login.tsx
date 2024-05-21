@@ -49,9 +49,9 @@ export default function Login({ changeAuth }: { changeAuth: () => void }) {
   return (
     <div className=' md:w-[47%] flex relative  flex-col items-center '>
       <div className='mb-10'>
-        <h2 className='font-bold text-[36px] text-call_to_action text-center'>
+        <p className='font-bold heading text-[36px] text-call_to_action text-center'>
           Welcome Back
-        </h2>
+        </p>
         <p className=' text-center text-call_to_action'>
           Great to have you back, let’s continue from where you left off!
         </p>

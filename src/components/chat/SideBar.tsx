@@ -66,8 +66,9 @@ const SideBar = () => {
       <div className='w-full flex flex-col h-[70%]  overflow-y-scroll  justify-start items-center'>
         {chats !== undefined &&
           chats.map((item: any, index: number) => {
-            const title = item.messages[1]?.content;
-            // ?.split("User query:")[1]
+            const title =
+              item.messages[1]?.content?.split("User query:")[1] ??
+              item.messages[1]?.content;
 
             return (
               <button

@@ -1,5 +1,14 @@
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import {
+  dracula,
+  androidstudio,
+  paraisoDark,
+  atelierHeathDark,
+  stackoverflowDark,
+  atelierSulphurpoolDark,
+  dark,
+} from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { okaidia } from "react-syntax-highlighter/dist/esm/styles/prism";
 import Markdown from "markdown-to-jsx";
 
 export default function CodeComponent({ code }: { code: string }) {
@@ -17,7 +26,7 @@ export default function CodeComponent({ code }: { code: string }) {
             {part}
           </Markdown>
         ) : (
-          <SyntaxHighlighter key={i} style={dracula}>
+          <SyntaxHighlighter language='rust' key={i} style={dracula}>
             {part}
           </SyntaxHighlighter>
         )

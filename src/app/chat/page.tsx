@@ -100,7 +100,9 @@ const Chat = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ message: question }),
+          body: JSON.stringify({
+            message: question.concat(`.category:${query}`),
+          }),
         }
       );
       if (!res) {
@@ -188,7 +190,7 @@ const Chat = () => {
     if (chatId) {
       fetchId();
     }
-  }, [chatId, fetchId, conversation]);
+  }, [chatId]);
   useEffect(() => {
     //console.log(session.status)
 
@@ -407,10 +409,12 @@ const Chat = () => {
       {/* Bottom INput section */}
       <div className='absolute w-[75%] self-center bottom-[1%]'>
         {conversation?.length < 2 && (
-          <div className='flex animate-pulse mb-2 gap-3 '>
+          <div className='flex animate-puls mb-2 gap-3 '>
             <button
               onClick={() => setQuery("Syntax")}
-              className='flex w-max active:scale-95 cursor-pointer hover:bg-appAsh hover:bg-opacity-50 text-appAsh duration-100 hover:text-white items-center gap-2 px-2 h-[27px] rounded-[8px] bg-[#EEEEEE]'
+              className={`flex w-max active:scale-95 ${
+                query === "Syntax" && "bg-appAsh text-white"
+              } cursor-pointer hover:bg-appAsh hover:bg-opacity-50 text-appAsh duration-100 hover:text-white items-center gap-2 px-2 h-[27px] rounded-[8px] bg-[#EEEEEE]`}
             >
               <Image
                 src={"/icons/syntax.svg"}
@@ -422,7 +426,9 @@ const Chat = () => {
             </button>
             <button
               onClick={() => setQuery("Contracts")}
-              className='flex w-max active:scale-95 cursor-pointer hover:bg-appAsh hover:bg-opacity-50 text-appAsh duration-100 hover:text-white items-center gap-2 px-2 h-[27px] rounded-[8px] bg-[#EEEEEE]'
+              className={`flex w-max active:scale-95 ${
+                query === "Contracts" && "bg-appAsh text-white"
+              } cursor-pointer hover:bg-appAsh hover:bg-opacity-50 text-appAsh duration-100 hover:text-white items-center gap-2 px-2 h-[27px] rounded-[8px] bg-[#EEEEEE]`}
             >
               <Image
                 src={"/icons/contract.svg"}
@@ -432,7 +438,12 @@ const Chat = () => {
               />
               <p className='text-sm '>Smart Contracts</p>
             </button>
-            <button className='flex w-max active:scale-95 cursor-pointer hover:bg-appAsh hover:bg-opacity-50 text-appAsh duration-100 hover:text-white items-center gap-2 px-2 h-[27px] rounded-[8px] bg-[#EEEEEE]'>
+            <button
+              onClick={() => setQuery("Testing")}
+              className={`flex w-max active:scale-95 ${
+                query === "Testing" && "bg-appAsh text-white"
+              } cursor-pointer hover:bg-appAsh hover:bg-opacity-50 text-appAsh duration-100 hover:text-white items-center gap-2 px-2 h-[27px] rounded-[8px] bg-[#EEEEEE]`}
+            >
               <Image
                 src={"/icons/tests.svg"}
                 width={12}
@@ -442,8 +453,11 @@ const Chat = () => {
               <p className='text-sm '>Unit Tests</p>
             </button>
             <button
-              title='Defi and lending smart contracts'
-              className='flex w-max active:scale-95 cursor-pointer hover:bg-appAsh hover:bg-opacity-50 text-appAsh duration-100 hover:text-white items-center gap-2 px-2 h-[27px] rounded-[8px] bg-[#EEEEEE]'
+              onClick={() => setQuery("Debug")}
+              title='Debug'
+              className={`flex w-max active:scale-95 ${
+                query === "Debug" && "bg-appAsh text-white"
+              } cursor-pointer hover:bg-appAsh hover:bg-opacity-50 text-appAsh duration-100 hover:text-white items-center gap-2 px-2 h-[27px] rounded-[8px] bg-[#EEEEEE]`}
             >
               <Image
                 src={"/icons/defi.svg"}
@@ -451,7 +465,7 @@ const Chat = () => {
                 height={18}
                 alt='test'
               />
-              <p className='text-sm '>Defi & Lending</p>
+              <p className='text-sm '>Debug</p>
             </button>
           </div>
         )}

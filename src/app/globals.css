@@ -140,14 +140,14 @@ pre {
 strong, code{
   color: white!important;
 }
-/* h1, h2, h3, h4, h5{
+h1, h2, h3, h4, h5{
   color: white!important;
-} */
+}
 
 h1{
   font-size: x-large;
   font-weight: 700;
-  color: white;
+  color: white!important;
 }
 
 h2{
@@ -157,4 +157,17 @@ color: white;
 h3{
   color: white;
   font-weight: 500;
+}
+
+code{
+  background: #58585874;
+  border-radius: 5px;
+}
+
+pre code {
+  background: none;
+}
+
+heading {
+  color: #100146!important;
 }

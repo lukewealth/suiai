@@ -6,8 +6,10 @@ import "aos/dist/aos.css";
 import Typewriter from "typewriter-effect";
 import Link from "next/link";
 import Header from "@/components/static/Header";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const { status } = useSession();
   useEffect(() => {
     AOS.init({
       once: true,
@@ -32,7 +34,15 @@ export default function Home() {
             Your All-in-One Solution for writing Move programming language code,
             generating smart contracts, facilitating cryptocurrency transactions
           </p>
-          <Link href={"/chat"}>
+          <Link
+            href={
+              status === "authenticated"
+                ? "/chat"
+                : status === "unauthenticated"
+                ? "/auth"
+                : "/"
+            }
+          >
             <button
               className='bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))] w-[250px] from-[#F258FF] to-[#9715FF] p-4 rounded-md'
               type='button'

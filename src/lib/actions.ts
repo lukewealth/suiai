@@ -27,7 +27,7 @@ export const getConversation = async (id: string) => {
 
     return res.data;
   } catch (error: any) {
-    console.error("Error getting conversation:", error);
+    console.error("Error getting conversation from server:", error.message);
   }
 };
 
