@@ -99,6 +99,7 @@ pre {
 
 .cursor::after {
   content: "|";
+  color: chartreuse;
   opacity: 1;
   /* animation: blink 0.78s step-end infinite; */
 }

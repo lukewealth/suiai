@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SuiAI
 
-## Getting Started
+Welcome to **SuiAI**, a cutting-edge chatbot designed to assist both experienced and inexperienced developers in writing and debugging smart contracts using the Move programming language. SuiAI offers a variety of modes to cater to your specific needs, whether you're just getting started or looking for advanced debugging help.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Move Syntax Mode**: Get real-time assistance with Move syntax, ensuring your code is written correctly and efficiently.
+- **Unit Testing Mode**: Write and execute unit tests for your smart contracts with ease.
+- **Smart Contracts Mode**: Access templates and guidance for creating robust smart contracts.
+- **Debugging Mode**: Identify and fix issues in your smart contracts quickly with the help of SuiAI.
+- **Live Assistance**: Connect with a live assistant for personalized help on more complex issues.
+- **Templates**: Use example smart contracts and Move syntax templates to jumpstart your development process.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## AI Integration
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+SuiAI incorporates the latest AI generation technologies, including the use of the Retrieval-Augmented Generation (RAG) model implementation on the server. This ensures that users receive the most relevant and accurate assistance based on the latest advancements in AI.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Usage
 
-## Learn More
+### Select a Mode
 
-To learn more about Next.js, take a look at the following resources:
+Users can select the mode that best fits their current needs:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Move Syntax**
+2. **Unit Testing**
+3. **Smart Contracts**
+4. **Debugging**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Each mode tailors the chatbot's responses and tools to help you efficiently address your specific requirements.
 
-## Deploy on Vercel
+### Connect with a Live Assistant
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+If you need more in-depth help, you can connect with a live assistant who can provide additional support and insights.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Templates
+
+SuiAI comes with a set of templates to help you get started quickly:
+
+- Example Smart Contracts
+- Move Syntax Templates
+
+These templates can be accessed directly within the chatbot interface, providing a solid foundation for your development efforts.
+
+## Project Status
+
+**SuiAI** is currently in its early stages, and active development is ongoing. We appreciate your patience and welcome any feedback to help us improve and expand the capabilities of this tool.
+<!-- 
+## Contribution
+
+We welcome contributions from the community! If you have suggestions, bug reports, or want to contribute code, please check out our [contribution guidelines](CONTRIBUTING.md).
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. -->
+
+## Contact
+
+For more information or support, please contact us at [ovodo@tricode.pro](mailto:ovodo@tricode.pro).
+
+---
+
+Thank you for using SuiAI! We hope it becomes an invaluable tool in your smart contract development journey.
+
+## Known Issues
+
+SuiAI is currently facing server issues and may be temporarily down with a 500 internal server error. Our engineers are working hard to resolve this as soon as possible. We appreciate your patience and understanding.

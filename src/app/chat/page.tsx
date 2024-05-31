@@ -31,6 +31,7 @@ const Chat = () => {
   const [response, setResponse] = useState("");
   const [mail, setMail] = useState("");
   const [name, setName] = useState("");
+  const [error, setError] = useState("");
   let [conversation, setConversation] = useState<Message[]>([]);
   const { query, setQuery, setNewChat, chatId, setChatId } = useAppContext();
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -89,9 +90,11 @@ const Chat = () => {
         setChatId(id);
       } catch (error) {
         console.log(error);
+        setError("No Conversation selected");
         return;
       }
     }
+    setError("");
     try {
       const res = await fetch(
         `${serverUrl}/api/v1/conversations/${chatId}/messages?stream=true`,
@@ -105,8 +108,11 @@ const Chat = () => {
           }),
         }
       );
-      if (!res) {
+      console.log("response:", res);
+
+      if (!res.ok) {
         console.log("No Response");
+        setResponse("#Server is currently down. Please try again later");
         return;
       }
       if (res.body) {
@@ -217,9 +223,7 @@ const Chat = () => {
           <p className='text-white font-light'>Light Mode</p>
         </div> */}
       </section>
-      {/* Body Section */}
-      {/*THIS SHOULD BE DELETED ITS JUST AN EXAMPLE */}
-      {/* <SyntaxComponent code={demo_data} /> */}
+      {/* Body Section/ Conversations */}
       {conversation?.length > 0 && (
         <div
           ref={chatContainerRef}
@@ -287,6 +291,9 @@ const Chat = () => {
               <SyntaxComponent code={initialResponse} />
             </div>
           )}
+          {error !== "" && (
+            <p className='text-3xl text-center my-2 text-red-600'> {error}</p>
+          )}
         </div>
       )}
       {/* Default System Message */}
@@ -318,6 +325,7 @@ const Chat = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
       {/* Sample Queries section */}
       <AnimatePresence mode='wait'>
         {query == "Syntax" && conversation?.length == 0 && (
@@ -408,7 +416,7 @@ const Chat = () => {
 
       {/* Bottom INput section */}
       <div className='absolute w-[75%] self-center bottom-[1%]'>
-        {conversation?.length < 2 && (
+        {conversation?.length < 50 && (
           <div className='flex animate-puls mb-2 gap-3 '>
             <button
               onClick={() => setQuery("Syntax")}

@@ -28,13 +28,15 @@ export default function Header() {
             : "bg-[radial-gradient(circle_at_bottom_right,_var(--tw-gradient-stops))]"
         } from-[#545454] to-[#fff] items-center py-4 fixed left-0 top-0 w-full text-white`}
       >
-        <Image
-          width={100}
-          height={50}
-          src={"/images/ailogob.png"}
-          alt=''
-          className=' w-fit'
-        />
+        <Link href={"/"}>
+          <Image
+            width={100}
+            height={50}
+            src={"/images/ailogob.png"}
+            alt=''
+            className=' w-fit'
+          />
+        </Link>
         <nav className='flex gap-2'>
           <button className='px-4' onClick={() => signOut()}>
             Signout

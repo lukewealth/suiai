@@ -9,6 +9,7 @@ import { allConvos, fresh } from "@/lib/actions";
 import { useSession, signOut } from "next-auth/react";
 
 import useSWR from "swr";
+import Link from "next/link";
 
 const SideBar = () => {
   const session = useSession();
@@ -129,7 +130,10 @@ const SideBar = () => {
                 {mail}
               </div>
               <section className='flex flex-col py-[10px] mt-[5px]'>
-                <div className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'>
+                <Link
+                  href={"/soon"}
+                  className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'
+                >
                   <Image
                     src={"icons/accnt.svg"}
                     alt='accnt'
@@ -137,8 +141,11 @@ const SideBar = () => {
                     height={16}
                   />
                   <p className='font-medium text-sm '>My Account</p>
-                </div>
-                <div className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'>
+                </Link>
+                <Link
+                  href={"/soon"}
+                  className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'
+                >
                   <Image
                     src={"icons/achievement.svg"}
                     alt='achievement'
@@ -146,8 +153,11 @@ const SideBar = () => {
                     height={16}
                   />
                   <p className='font-medium text-sm '>My Achievements</p>
-                </div>
-                <div className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'>
+                </Link>
+                <Link
+                  href={"/soon"}
+                  className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'
+                >
                   <Image
                     src={"icons/updates.svg"}
                     alt='updates'
@@ -155,8 +165,11 @@ const SideBar = () => {
                     height={16}
                   />
                   <p className='font-medium text-sm '>Updates & FAQ</p>
-                </div>
-                <div className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'>
+                </Link>
+                <Link
+                  href={"/soon"}
+                  className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'
+                >
                   <Image
                     src={"icons/help.svg"}
                     alt='help'
@@ -164,8 +177,11 @@ const SideBar = () => {
                     height={16}
                   />
                   <p className='font-medium text-sm '>Help</p>
-                </div>
-                <div className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'>
+                </Link>
+                <Link
+                  href={"/soon"}
+                  className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'
+                >
                   <Image
                     src={"icons/api.svg"}
                     alt='api'
@@ -173,7 +189,7 @@ const SideBar = () => {
                     height={16}
                   />
                   <p className='font-medium text-sm '>API</p>
-                </div>
+                </Link>
                 <button
                   onClick={() => signOut()}
                   className='flex items-center hover:bg-call_to_action hover:bg-opacity-20 rounded-md hover:cursor-pointer px-[2%] py-[4%] my-[5px] gap-3 border- opacity-80 border-[#666666] border-opacity-50 pb-1'

@@ -16,11 +16,11 @@
 //   const maxEpoch = Number(epoch) + MAX_EPOCH; // the ephemeral key will be valid for MAX_EPOCH from now
 //   const ephemeralKeyPair = new Ed25519Keypair();
 //   const randomness = generateRandomness();
-//   const nonce = generateNonce(
-//     ephemeralKeyPair.getPublicKey(),
-//     maxEpoch,
-//     randomness
-//   );
+// const nonce = generateNonce(
+//   ephemeralKeyPair.getPublicKey(),
+//   maxEpoch,
+//   randomness
+// );
 
 //   // Save data to session storage so completeZkLogin() can use it after the redirect
 //   saveSetupData({
@@ -31,12 +31,12 @@
 //   });
 
 //   // Start the OAuth flow with the OpenID provider
-//   const urlParamsBase = {
-//     nonce: nonce,
-//     redirect_uri: "http://localhost:3000/auth",
-//     response_type: "id_token",
-//     scope: "openid",
-//   };
+// const urlParamsBase = {
+//   nonce: nonce,
+//   redirect_uri: "http://localhost:3000/auth",
+//   response_type: "id_token",
+//   scope: "openid",
+// };
 //   let loginUrl: string;
 //   switch (provider) {
 //     case "Google": {
